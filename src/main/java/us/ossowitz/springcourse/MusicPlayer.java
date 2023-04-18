@@ -1,7 +1,6 @@
 package us.ossowitz.springcourse;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MusicPlayer {
     private Music music;
@@ -26,6 +25,7 @@ public class MusicPlayer {
     }
 
     // IoC
+    @Autowired
     public MusicPlayer(Music music) {
         this.music = music;
     }
