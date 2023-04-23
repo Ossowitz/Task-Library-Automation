@@ -7,8 +7,31 @@ import org.springframework.stereotype.Component;
 
 @Component("musicPlayer")
 public class MusicPlayer {
+
     private Music music1;
     private Music music2;
+
+    @Value("${musicPlayer.name}")
+    private String someName;
+
+    @Value("${musicPlayer.volume}")
+    private int value;
+
+    public String getSomeName() {
+        return someName;
+    }
+
+    public void setSomeName(String someName) {
+        this.someName = someName;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     @Autowired
     public MusicPlayer(@Qualifier("rockMusic") Music music1,
