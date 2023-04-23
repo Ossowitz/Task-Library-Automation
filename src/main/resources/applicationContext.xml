@@ -8,6 +8,6 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="us.ossowitz.springcourse"/>
-    <context:property-placeholder location="musicPlayer.properties"
+    <context:property-placeholder location="musicPlayer.properties"/>
 
 </beans>
