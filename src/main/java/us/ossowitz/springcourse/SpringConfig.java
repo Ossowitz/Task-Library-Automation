@@ -12,9 +12,6 @@ import org.springframework.core.env.Environment;
 @ComponentScan("us.ossowitz.springcourse")
 public class SpringConfig {
 
-    @Autowired
-    Environment env;
-
     @Bean
     public ClassicalMusic classicalMusicBean() {
         return new ClassicalMusic();
