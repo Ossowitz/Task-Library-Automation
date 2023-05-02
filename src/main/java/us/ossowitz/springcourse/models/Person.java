@@ -13,6 +13,15 @@ public class Person {
         this.phone = phone;
     }
 
+    public int calcPhone() {
+        int sum = 0;
+        while (phone != 0) {
+            sum += (phone % 10);
+            phone /= 10;
+        }
+        return sum;
+    }
+
     public int getId() {
         return id;
     }
@@ -44,4 +53,5 @@ public class Person {
     public void setPhone(int phone) {
         this.phone = phone;
     }
+
 }
