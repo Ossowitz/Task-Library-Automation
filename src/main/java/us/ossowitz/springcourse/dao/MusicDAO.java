@@ -2,13 +2,11 @@ package us.ossowitz.springcourse.dao;
 
 import org.springframework.stereotype.Component;
 import us.ossowitz.springcourse.models.Music;
-import us.ossowitz.springcourse.models.implementation.ClassicalMusic;
-import us.ossowitz.springcourse.models.implementation.RapMusic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("music")
+@Component
 public class MusicDAO {
     private List<Music> music;
     private int PRIMARY_KEY;
@@ -16,9 +14,9 @@ public class MusicDAO {
     {
         music = new ArrayList<>();
 
-        music.add(new ClassicalMusic("classicalMusic", ++PRIMARY_KEY));
-        music.add(new RapMusic("rockMusic", ++PRIMARY_KEY));
-        music.add(new RapMusic("rapMusic", ++PRIMARY_KEY));
+        music.add(new Music("classicalMusic", ++PRIMARY_KEY));
+        music.add(new Music("rockMusic", ++PRIMARY_KEY));
+        music.add(new Music("rapMusic", ++PRIMARY_KEY));
     }
 
     public List<Music> index() {
@@ -27,5 +25,10 @@ public class MusicDAO {
 
     public Music show(int id) {
         return music.stream().filter(music -> id == music.getId()).findAny().orElse(null);
+    }
+
+    public void save(Music track) {
+        track.setId(++PRIMARY_KEY);
+        music.add(track);
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New track</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/music}" th:object="${track}">
+    <label for="name">Enter music name: </label>
+    <input type="text" th:field="*{name}" id="name">
+    <br/>
+    <input type="submit" value="Create"/>
+</form>
+
+</body>
+</html>

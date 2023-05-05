@@ -1,12 +1,15 @@
 package us.ossowitz.springcourse.models;
 
-public abstract class Music {
-    protected String name;
-    protected int id;
+public class Music {
+    private String name;
+    private int id;
 
     public Music(String name, int id) {
         this.name = name;
         this.id = id;
+    }
+
+    public Music() {
     }
 
     public String getName() {

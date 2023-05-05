@@ -3,9 +3,9 @@ package us.ossowitz.springcourse.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import us.ossowitz.springcourse.dao.MusicDAO;
+import us.ossowitz.springcourse.models.Music;
 
 @Controller
 @RequestMapping("/music")
@@ -24,5 +24,20 @@ public class MusicController {
         return "music/index";
     }
 
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("track", musicDAO.show(id));
+        return "music/show";
+    }
 
+    @GetMapping("/new")
+    public String newMusic(@ModelAttribute("track") Music music) {
+        return "music/new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("track") Music music){
+        musicDAO.save(music);
+        return "redirect:/music";
+    }
 }
