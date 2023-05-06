@@ -6,8 +6,17 @@
 </head>
 <body>
 
-<a th:text="${track.getName()}">VALUE</a>
-<a th:text="${track.getId()}">VALUE</a>
+<p th:text="${track.getName()}">VALUE</p>
+<p th:text="${track.getId()}">VALUE</p>
+
+<a th:href="@{/music/{id}/edit(id=${track.getId()})}">Edit</a>
+
+<br/>
+<br/>
+
+<form th:method="DELETE" th:action="@{/music/{id}(id=${track.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
 
 </body>
 </html>

@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Music</title>
+    <title>All music</title>
 </head>
 <body>
 
 <div th:each="track : ${music}">
-  <a th:href="@{/music/{id}(id=${track.getId()})}" th:text="${track.getName()}">music</a>
+    <a th:href="@{/music/{id}(id=${track.getId()})}" th:text="${track.getName()}">user</a>
 </div>
+
+<br/>
+<hr/>
+
+<a href="/music/new">Create new track</a>
 
 </body>
 </html>

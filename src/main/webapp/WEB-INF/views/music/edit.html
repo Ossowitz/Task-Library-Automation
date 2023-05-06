@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New specified music</title>
+    <title>Edit specified music</title>
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/music}" th:object="${track}">
+<form th:method="PATCH" th:action="@{/music/{id}(id=${track.getId()})}" th:object="${track}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>
-    <input type="submit" value="Create"/>
+    <input type="submit" value="Update"/>
 </form>
 
 </body>

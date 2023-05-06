@@ -10,8 +10,7 @@ import us.ossowitz.springcourse.models.Music;
 @Controller
 @RequestMapping("/music")
 public class MusicController {
-
-    private final MusicDAO musicDAO;
+    private MusicDAO musicDAO;
 
     @Autowired
     public MusicController(MusicDAO musicDAO) {
@@ -25,19 +24,37 @@ public class MusicController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(Model model, @PathVariable("id") int id) {
         model.addAttribute("track", musicDAO.show(id));
         return "music/show";
     }
 
     @GetMapping("/new")
-    public String newMusic(@ModelAttribute("track") Music music) {
+    public String newMusic(@ModelAttribute("track") Music track) {
         return "music/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("track") Music music){
-        musicDAO.save(music);
+    public String create(@ModelAttribute("track") Music track) {
+        musicDAO.save(track);
+        return "redirect:/music";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("track", musicDAO.show(id));
+        return "music/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("track") Music track, @PathVariable("id") int id) {
+        musicDAO.update(id, track);
+        return "redirect:/music";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        musicDAO.delete(id);
         return "redirect:/music";
     }
 }

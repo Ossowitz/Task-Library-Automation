@@ -8,27 +8,36 @@ import java.util.List;
 
 @Component
 public class MusicDAO {
-    private List<Music> music;
+    private List<Music> musicList;
     private int PRIMARY_KEY;
 
     {
-        music = new ArrayList<>();
+        musicList = new ArrayList<>();
 
-        music.add(new Music("classicalMusic", ++PRIMARY_KEY));
-        music.add(new Music("rockMusic", ++PRIMARY_KEY));
-        music.add(new Music("rapMusic", ++PRIMARY_KEY));
+        musicList.add(new Music(++PRIMARY_KEY, "classicalMusic"));
+        musicList.add(new Music(++PRIMARY_KEY, "rockMusic"));
+        musicList.add(new Music(++PRIMARY_KEY, "rapMusic"));
     }
 
     public List<Music> index() {
-        return music;
+        return musicList;
     }
 
     public Music show(int id) {
-        return music.stream().filter(music -> id == music.getId()).findAny().orElse(null);
+        return musicList.stream().filter(track -> id == track.getId()).findAny().orElse(null);
     }
 
-    public void save(Music track) {
-        track.setId(++PRIMARY_KEY);
-        music.add(track);
+    public void save(Music music) {
+        music.setId(++PRIMARY_KEY);
+        musicList.add(music);
+    }
+
+    public void update(int id, Music musicUpdated) {
+        Music musicToBeUpdated = show(id);
+        musicToBeUpdated.setName(musicUpdated.getName());
+    }
+
+    public void delete(int id) {
+        musicList.removeIf(track -> id == track.getId());
     }
 }
