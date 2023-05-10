@@ -2,21 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Specified music</title>
+    <title>Show specified track</title>
 </head>
 <body>
 
-<p th:text="${track.getName()}">VALUE</p>
-<p th:text="${track.getId()}">VALUE</p>
-
-<a th:href="@{/music/{id}/edit(id=${track.getId()})}">Edit</a>
-
-<br/>
-<br/>
-
-<form th:method="DELETE" th:action="@{/music/{id}(id=${track.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<p th:text="${'Title ' + track.getId() + ': ' + track.getTitle() + ' - code: ' + track.getVendorCode()}">VALUE</p>
 
 </body>
 </html>
