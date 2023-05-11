@@ -27,4 +27,21 @@ public class MusicDAO {
         return musicList.stream().filter(track -> id == track.getId()).findAny().orElse(null);
     }
 
+    public void save(Music track) {
+        track.setId(++PRIMARY_KEY);
+        musicList.add(track);
+    }
+
+    public void update(int id, Music track) {
+        Music trackToBeUpdated = show(id);
+
+        trackToBeUpdated.setTitle(track.getTitle());
+        trackToBeUpdated.setVendorCode(track.getVendorCode());
+        trackToBeUpdated.setFeedback(track.getFeedback());
+    }
+
+    public void delete(int id) {
+        musicList.removeIf(track -> id == track.getId());
+    }
+
 }
