@@ -3,33 +3,65 @@ package us.ossowitz.springcourse.dao;
 import org.springframework.stereotype.Component;
 import us.ossowitz.springcourse.models.Music;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component("musicDAO")
 public class MusicDAO {
-    private List<Music> musicList;
-    private static int PRIMARY_KEY;
+    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "postgres";
 
-    {
-        musicList = new ArrayList<>();
+    private static Connection connection;
 
-        musicList.add(new Music(++PRIMARY_KEY, "classicalMusic", 100, "76myxomor76@gmail.com"));
-        musicList.add(new Music(++PRIMARY_KEY, "rockMusic", 200, "looper@mail.ru"));
-        musicList.add(new Music(++PRIMARY_KEY, "rapMusic", 300, "kaler@yandex.ru"));
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Music> index() {
-        return musicList;
+        List<Music> music = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            String SQL = "SELECT * FROM musicdb.music";
+            ResultSet resultSet = statement.executeQuery(SQL);
+
+            while (resultSet.next()) {
+                Music track = new Music();
+
+                track.setId(resultSet.getInt("id"));
+                track.setTitle(resultSet.getString("title"));
+                track.setVendorCode(resultSet.getInt("vendorCode"));
+                track.setFeedback(resultSet.getString("feedback"));
+
+                music.add(track);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return music;
     }
 
     public Music show(int id) {
-        return musicList.stream().filter(track -> id == track.getId()).findAny().orElse(null);
+        return null;
+//        return musicList.stream().filter(track -> id == track.getId()).findAny().orElse(null);
     }
 
     public void save(Music track) {
-        track.setId(++PRIMARY_KEY);
-        musicList.add(track);
+//        track.setId(++PRIMARY_KEY);
+//        musicList.add(track);
     }
 
     public void update(int id, Music track) {
@@ -41,7 +73,7 @@ public class MusicDAO {
     }
 
     public void delete(int id) {
-        musicList.removeIf(track -> id == track.getId());
+//        musicList.removeIf(track -> id == track.getId());
     }
 
 }
