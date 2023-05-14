@@ -9,6 +9,18 @@ import java.util.List;
 
 @Component("musicDAO")
 public class MusicDAO {
+    private static int PRIMARY_KEY;
+    private List<Music> musicList;
+
+    {
+        musicList = new ArrayList<>();
+
+
+        musicList.add(new Music(1, "classicalMusic", 100, "tom@gmail.com"));
+        musicList.add(new Music(2, "rockMusic", 200, "bob@gmail.com"));
+        musicList.add(new Music(3, "rapMusic", 300, "john@gmail.com"));
+    }
+
 //    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 //    private static final String USERNAME = "postgres";
 //    private static final String PASSWORD = "postgres";
@@ -30,6 +42,7 @@ public class MusicDAO {
 //    }
 
     public List<Music> index() {
+        return musicList;
 //        List<Music> music = new ArrayList<>();
 //
 //        try {
@@ -68,6 +81,8 @@ public class MusicDAO {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
+        track.setId(++PRIMARY_KEY);
+        musicList.add(track);
     }
 
     public void update(int id, Music track) {
