@@ -60,8 +60,14 @@ public class MusicDAO {
     }
 
     public void save(Music track) {
-//        track.setId(++PRIMARY_KEY);
-//        musicList.add(track);
+        try {
+            Statement statement = connection.createStatement();
+            String SQL = "INSERT INTO spring_db.person VALUES(" + 1 + ",'" + track.getTitle() + "'," + track.getVendorCode()
+                         + ",'" + track.getFeedback() + "')";
+            statement.executeUpdate(SQL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(int id, Music track) {
