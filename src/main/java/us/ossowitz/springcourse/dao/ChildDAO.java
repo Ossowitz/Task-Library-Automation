@@ -18,8 +18,13 @@ public class ChildDAO {
     static {
         try {
             Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -27,13 +32,13 @@ public class ChildDAO {
     public List<Children> index() {
         List<Children> childList = new ArrayList<>();
 
-        String sql = """
-                SELECT *
-                FROM children.children.child
-                """;
         try {
-            var preparedStatement = connection.prepareStatement(sql);
-            var resultSet = preparedStatement.executeQuery();
+            var statement = connection.createStatement();
+            var sql = """
+                    SELECT *
+                    FROM children.children.child
+                    """;
+            var resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
                 Children children = new Children();
