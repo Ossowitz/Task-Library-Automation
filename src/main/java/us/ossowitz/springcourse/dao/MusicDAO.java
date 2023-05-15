@@ -60,11 +60,18 @@ public class MusicDAO {
     }
 
     public void save(Music track) {
+        String SQL = """
+                INSERT INTO musicdb.music
+                VALUES (1, ?, ?, ?)
+                """;
         try {
-            Statement statement = connection.createStatement();
-            String SQL = "INSERT INTO musicdb.music VALUES(" + 1 + ",'" + track.getTitle() + "'," + track.getVendorCode()
-                         + ",'" + track.getFeedback() + "')";
-            statement.executeUpdate(SQL);
+            var preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setString(1, track.getTitle());
+            preparedStatement.setInt(2, track.getVendorCode());
+            preparedStatement.setString(3, track.getFeedback());
+
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
