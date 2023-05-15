@@ -62,7 +62,7 @@ public class MusicDAO {
     public void save(Music track) {
         try {
             Statement statement = connection.createStatement();
-            String SQL = "INSERT INTO spring_db.person VALUES(" + 1 + ",'" + track.getTitle() + "'," + track.getVendorCode()
+            String SQL = "INSERT INTO musicdb.music VALUES(" + 1 + ",'" + track.getTitle() + "'," + track.getVendorCode()
                          + ",'" + track.getFeedback() + "')";
             statement.executeUpdate(SQL);
         } catch (SQLException e) {
