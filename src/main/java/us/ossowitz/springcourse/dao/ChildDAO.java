@@ -3,9 +3,7 @@ package us.ossowitz.springcourse.dao;
 import org.springframework.stereotype.Component;
 import us.ossowitz.springcourse.models.Children;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +27,29 @@ public class ChildDAO {
     public List<Children> index() {
         List<Children> childList = new ArrayList<>();
 
+        String sql = """
+                SELECT *
+                FROM children.children.child
+                """;
+        try {
+            var preparedStatement = connection.prepareStatement(sql);
+            var resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()) {
+                Children children = new Children();
 
-        return null;
+                children.setId(resultSet.getInt("id"));
+                children.setName(resultSet.getString("name"));
+                children.setSurname(resultSet.getString("surname"));
+                children.setAge(resultSet.getInt("age"));
+                children.setEmail(resultSet.getString("email"));
+
+                childList.add(children);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return childList;
     }
 }

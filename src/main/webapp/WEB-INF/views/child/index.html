@@ -6,7 +6,10 @@
 </head>
 <body>
 
-
+<div th:each="children : ${child}">
+    <a th:href="@{/child/{id}(id=${children.getId()})}"
+       th:text="${children.getName() + ' ' + children.getSurname()}">children</a>
+</div>
 
 </body>
 </html>
