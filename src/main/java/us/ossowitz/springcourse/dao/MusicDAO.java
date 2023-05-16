@@ -33,9 +33,10 @@ public class MusicDAO {
         List<Music> music = new ArrayList<>();
 
         try {
-            Statement statement = connection.createStatement();
             String SQL = "SELECT * FROM musicdb.music";
-            ResultSet resultSet = statement.executeQuery(SQL);
+
+            var preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Music track = new Music();
