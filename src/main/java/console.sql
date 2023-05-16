@@ -1,5 +1,3 @@
-CREATE DATABASE children;
-
 CREATE SCHEMA children;
 
 CREATE TABLE child

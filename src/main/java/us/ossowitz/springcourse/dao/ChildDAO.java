@@ -36,7 +36,7 @@ public class ChildDAO {
             var statement = connection.createStatement();
             var sql = """
                     SELECT *
-                    FROM children.children.child
+                    FROM children.child
                     """;
             var resultSet = statement.executeQuery(sql);
 
@@ -56,5 +56,53 @@ public class ChildDAO {
         }
 
         return childList;
+    }
+
+    public Children show(int id) {
+        Children children = null;
+        var sql = """
+                SELECT *
+                FROM children.child
+                WHERE id = ?
+                """;
+        try {
+            var preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            var resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            children = new Children();
+
+            children.setId(resultSet.getInt("id"));
+            children.setName(resultSet.getString("name"));
+            children.setSurname(resultSet.getString("surname"));
+            children.setAge(resultSet.getInt("age"));
+            children.setEmail(resultSet.getString("email"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return children;
+    }
+
+    public void update(int id, Children updatedChildren) {
+        String sql = """
+                UPDATE children.child
+                SET name = ?, surname = ?, age = ?, email = ?
+                WHERE id = ?
+                """;
+        try {
+            var preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, updatedChildren.getName());
+            preparedStatement.setString(2, updatedChildren.getSurname());
+            preparedStatement.setInt(3, updatedChildren.getAge());
+            preparedStatement.setString(4, updatedChildren.getEmail());
+            preparedStatement.setInt(5, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

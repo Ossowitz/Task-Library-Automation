@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specified children</title>
+</head>
+<body>
+
+<p th:text="${child.getId() + ': ' + child.getName() + ' ' + child.getSurname()}">VALUE</p>
+<p th:text="${child.getAge() + ' ' + child.getEmail()}">VALUE</p>
+
+</body>
+</html>
