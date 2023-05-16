@@ -85,6 +85,25 @@ public class ChildDAO {
         return children;
     }
 
+    public void save(Children children) {
+        String sql = """
+                INSERT INTO children.child
+                VALUES (10, ?, ?, ?, ?)
+                """;
+        try {
+            var preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, children.getName());
+            preparedStatement.setString(2, children.getSurname());
+            preparedStatement.setInt(3, children.getAge());
+            preparedStatement.setString(4, children.getEmail());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void update(int id, Children updatedChildren) {
         String sql = """
                 UPDATE children.child
@@ -99,6 +118,23 @@ public class ChildDAO {
             preparedStatement.setInt(3, updatedChildren.getAge());
             preparedStatement.setString(4, updatedChildren.getEmail());
             preparedStatement.setInt(5, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String sql = """
+                DELETE 
+                FROM children.child
+                WHERE id = ?
+                """;
+        try {
+            var preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
