@@ -8,15 +8,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.springcourse.dao.ChildDAO;
 import us.ossowitz.springcourse.models.Children;
+import us.ossowitz.springcourse.util.ChildValidator;
 
 @Controller
 @RequestMapping("/child")
 public class ChildController {
-    private ChildDAO childDAO;
+
+    private final ChildDAO childDAO;
+    private final ChildValidator childValidator;
 
     @Autowired()
-    public ChildController(ChildDAO childDAO) {
+    public ChildController(ChildDAO childDAO, ChildValidator childValidator) {
         this.childDAO = childDAO;
+        this.childValidator = childValidator;
     }
 
     @GetMapping()
@@ -39,6 +43,8 @@ public class ChildController {
     @PostMapping()
     public String create(@ModelAttribute("children") @Valid Children children,
                          BindingResult bindingResult) {
+        childValidator.validate(children, bindingResult);
+
         if (bindingResult.hasErrors())
             return "child/new";
 
@@ -55,6 +61,8 @@ public class ChildController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("children") @Valid Children children,
                          BindingResult bindingResult, @PathVariable("id") int id) {
+        childValidator.validate(children, bindingResult);
+
         if (bindingResult.hasErrors())
             return "child/edit";
 
