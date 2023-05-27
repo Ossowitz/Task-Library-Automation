@@ -25,15 +25,18 @@ public class Children {
     @Email(message = "Email should not be valid")
     private String email;
 
+    private String address;
+
     public Children() {
     }
 
-    public Children(int id, String name, String surname, int age, String email) {
+    public Children(int id, String name, String surname, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
 
     public int getId() {
@@ -74,5 +77,13 @@ public class Children {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
