@@ -29,12 +29,12 @@ public class Person {
 
     @NotEmpty(message = "Phone number should not be empty")
     @ContactNumberConstraint
-    private int phoneNumber;
+    private String phoneNumber;
 
     @PerkValidator(anyOf = {Perk.READERSHIP, Perk.MENTOR, Perk.VIP, Perk.STAFF})
     private Perk perk;
 
-    public Person(int id, String name, int age, String email, String address, int phoneNumber, Perk perk) {
+    public Person(int id, String name, int age, String email, String address, String phoneNumber, Perk perk) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -87,11 +87,11 @@ public class Person {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
