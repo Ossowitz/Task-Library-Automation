@@ -1,4 +1,4 @@
-package config;
+package us.ossowitz.config;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;

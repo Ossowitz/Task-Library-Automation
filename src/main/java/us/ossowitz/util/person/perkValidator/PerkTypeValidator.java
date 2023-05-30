@@ -1,8 +1,8 @@
-package util.person;
+package us.ossowitz.util.person.perkValidator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import models.person.Perk;
+import us.ossowitz.models.person.Perk;
 
 import java.util.Arrays;
 

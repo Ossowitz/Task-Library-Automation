@@ -1,8 +1,8 @@
-package util.person;
+package us.ossowitz.util.person.perkValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import models.person.Perk;
+import us.ossowitz.models.person.Perk;
 
 import java.lang.annotation.*;
 

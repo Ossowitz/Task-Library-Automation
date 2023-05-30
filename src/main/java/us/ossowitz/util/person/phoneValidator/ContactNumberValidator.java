@@ -1,4 +1,4 @@
-package util.person.phoneValidator;
+package us.ossowitz.util.person.phoneValidator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
