@@ -11,5 +11,12 @@
 <p th:text="${'address = ' + person.getAddress()}">VALUE</p>
 <p th:text="${'perk = ' + person.getPerk()}">VALUE</p>
 <p th:text="${'mobile phone number = ' + person.getPhoneNumber()}">VALUE</p>
+<hr/>
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit this person</a>
+<br/>
+<br/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <input type="submit" value="Delete this person"/>
+</form>
 </body>
 </html>

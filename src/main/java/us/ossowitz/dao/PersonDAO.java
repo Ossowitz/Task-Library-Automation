@@ -58,4 +58,22 @@ public class PersonDAO {
                 person.getEmail(), person.getAddress(),
                 person.getPhoneNumber(), person.getPerk().name());
     }
+
+    public void update(int id, Person updatedPerson) {
+        jdbcTemplate.update("""
+                        UPDATE library_automation.person
+                        SET name=?, age=?, email=?, address=?, phone_number=?, perk=?
+                        WHERE id=?
+                        """,
+                updatedPerson.getName(), updatedPerson.getAge(),
+                updatedPerson.getEmail(), updatedPerson.getAddress(),
+                updatedPerson.getPhoneNumber(), updatedPerson.getPerk().name(), id);
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("""
+                DELETE FROM library_automation.person
+                WHERE id=?
+                """, id);
+    }
 }
