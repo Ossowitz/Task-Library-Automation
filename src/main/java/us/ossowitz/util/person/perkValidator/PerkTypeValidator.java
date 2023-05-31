@@ -16,6 +16,6 @@ public class PerkTypeValidator implements ConstraintValidator<PerkValidator, Per
 
     @Override
     public boolean isValid(Perk value, ConstraintValidatorContext context) {
-        return value == null || Arrays.asList(subset).contains(value);
+        return value != null && Arrays.asList(subset).contains(value);
     }
 }

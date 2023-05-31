@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 public class ContactNumberValidator implements
         ConstraintValidator<ContactNumberConstraint, String> {
-
     @Override
     public void initialize(ContactNumberConstraint contactNumber) {
     }
@@ -16,5 +15,4 @@ public class ContactNumberValidator implements
         return contactField != null && contactField.matches("[0-9]+")
                && (contactField.length() == 11);
     }
-
 }
