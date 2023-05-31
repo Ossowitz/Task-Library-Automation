@@ -9,10 +9,6 @@ import static us.ossowitz.models.person.Perk.*;
 public class Person {
     private int id;
 
-    /**
-     * TODO «Add pattern for name»
-     */
-    // @Pattern
     @NotEmpty(message = "Name should not be empty")
     private String name;
 
@@ -23,10 +19,8 @@ public class Person {
     @NotEmpty(message = "Email should not be empty")
     private String email;
 
-    /**
-     * TODO «Add pattern for address»
-     */
-    // @Pattern
+    @Pattern(regexp = "^[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*$",
+            message = "Your address should be in this format: Country, City, District")
     private String address;
 
     @NotEmpty(message = "Phone number should not be empty")
