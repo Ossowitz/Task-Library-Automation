@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import us.ossowitz.util.person.perkValidator.PerkValidator;
 import us.ossowitz.util.person.phoneValidator.ContactNumberConstraint;
 
+import static us.ossowitz.models.person.Perk.*;
+
 public class Person {
     private int id;
 
@@ -31,7 +33,7 @@ public class Person {
     @ContactNumberConstraint
     private String phoneNumber;
 
-    @PerkValidator(anyOf = {Perk.READERSHIP, Perk.MENTOR, Perk.VIP, Perk.STAFF})
+    @PerkValidator(anyOf = {READERSHIP, MENTOR, VIP, STAFF})
     private Perk perk;
 
     public Person(int id, String name, int age, String email, String address, String phoneNumber, Perk perk) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import us.ossowitz.models.person.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
@@ -29,11 +30,32 @@ public class PersonDAO {
         return jdbcTemplate.query("""
                                 SELECT *
                                 FROM library_automation.person
-                                WHERE id = ?
+                                WHERE id=?
                                 """,
                         new Object[]{id},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
     }
 
+    public Optional<Person> show(String email) {
+        return jdbcTemplate.query("""
+                                SELECT *
+                                FROM library_automation.person
+                                WHERE email=?
+                                                                """,
+                        new Object[]{email},
+                        new BeanPropertyRowMapper<>(Person.class))
+                .stream()
+                .findAny();
+    }
+
+    public void save(Person person) {
+        jdbcTemplate.update("""
+                        INSERT INTO library_automation.person (name, age, email, address, phone_number, perk)
+                        VALUES (?,?,?,?,?,?)
+                        """,
+                person.getName(), person.getAge(),
+                person.getEmail(), person.getAddress(),
+                person.getPhoneNumber(), person.getPerk().name());
+    }
 }
