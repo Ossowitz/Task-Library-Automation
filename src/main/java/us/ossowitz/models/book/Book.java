@@ -1,32 +1,28 @@
 package us.ossowitz.models.book;
 
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import us.ossowitz.util.book.TitleBookConstraint;
 
 public class Book {
     private int id;
     private int personId;
-    /**
-     * TODO: #Ограничение на длину: от 2 до 30 символов, уникальности
-     * @Size, @NotEmpty и добавление Валидатора
-     */
+
     @NotEmpty(message = "Title should not be empty")
     @Size(min = 2, max = 30, message = "Title should be between 2 and 30 characters")
+    @TitleBookConstraint
     private String title;
 
-    /**
-     * TODO: #Ограничение на @NotEmpty и использование корректных символов
-     */
+    @NotEmpty(message = "Author name should not be empty")
+    @Pattern(regexp = "^[a-zA-Z]+$")
     private String author;
 
-    /**
-     * TODO: #Ограничение на неотрицательность года написания
-     */
+    @Size(min = 0, message = "Publication year should be greater than 0")
     private int year;
 
-    /**
-     * TODO: #Ограничение на количество символов в коде
-     */
+    @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
     private int vendorCode;
 
     public Book() {
