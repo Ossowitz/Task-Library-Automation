@@ -6,11 +6,11 @@ import us.ossowitz.models.person.Perk;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
-@Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Constraint(validatedBy = PerkTypeValidator.class)
-public @interface PerkValidator {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerkConstraint {
     Perk[] anyOf();
     String message() default "Perk should be valid";
     Class<?>[] groups() default {};
