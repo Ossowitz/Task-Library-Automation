@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.dao.PersonDAO;
 import us.ossowitz.models.person.Person;
-import us.ossowitz.util.person.personValidator.PersonValidator;
 
 @Controller
 @RequestMapping("/people")
