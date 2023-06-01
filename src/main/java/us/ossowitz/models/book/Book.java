@@ -1,15 +1,32 @@
 package us.ossowitz.models.book;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class Book {
     private int id;
     private int personId;
-
+    /**
+     * TODO: #Ограничение на длину: от 2 до 30 символов, уникальности
+     * @Size, @NotEmpty и добавление Валидатора
+     */
+    @NotEmpty(message = "Title should not be empty")
+    @Size(min = 2, max = 30, message = "Title should be between 2 and 30 characters")
     private String title;
 
+    /**
+     * TODO: #Ограничение на @NotEmpty и использование корректных символов
+     */
     private String author;
 
+    /**
+     * TODO: #Ограничение на неотрицательность года написания
+     */
     private int year;
 
+    /**
+     * TODO: #Ограничение на количество символов в коде
+     */
     private int vendorCode;
 
     public Book() {
