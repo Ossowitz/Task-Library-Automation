@@ -6,11 +6,11 @@ import us.ossowitz.models.person.Perk;
 
 import java.util.Arrays;
 
-public class PerkTypeValidator implements ConstraintValidator<PerkConstraint, Perk> {
+public class PerkPersonTypeValidator implements ConstraintValidator<PerkPersonConstraint, Perk> {
     private Perk[] subset;
 
     @Override
-    public void initialize(PerkConstraint constraint) {
+    public void initialize(PerkPersonConstraint constraint) {
         this.subset = constraint.anyOf();
     }
 

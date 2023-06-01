@@ -3,10 +3,10 @@ package us.ossowitz.util.person.phoneValidator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class ContactNumberValidator implements
-        ConstraintValidator<ContactNumberConstraint, String> {
+public class ContactPersonNumberValidator implements
+        ConstraintValidator<ContactPersonNumberConstraint, String> {
     @Override
-    public void initialize(ContactNumberConstraint contactNumber) {
+    public void initialize(ContactPersonNumberConstraint contactNumber) {
     }
 
     @Override

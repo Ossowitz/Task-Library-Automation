@@ -4,18 +4,17 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import us.ossowitz.dao.PersonDAO;
-import us.ossowitz.models.person.Person;
 
-public class EmailValidator implements ConstraintValidator<EmailConstraint, String> {
+public class EmailPersonValidator implements ConstraintValidator<EmailPersonConstraint, String> {
     private final PersonDAO personDAO;
 
     @Autowired
-    public EmailValidator(PersonDAO personDAO) {
+    public EmailPersonValidator(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
     @Override
-    public void initialize(EmailConstraint constraintAnnotation) {
+    public void initialize(EmailPersonConstraint constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
