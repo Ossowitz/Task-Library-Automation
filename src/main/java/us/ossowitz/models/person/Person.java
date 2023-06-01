@@ -1,6 +1,7 @@
 package us.ossowitz.models.person;
 
 import jakarta.validation.constraints.*;
+import us.ossowitz.util.person.emailValidator.EmailConstraint;
 import us.ossowitz.util.person.perkValidator.PerkConstraint;
 import us.ossowitz.util.person.phoneValidator.ContactNumberConstraint;
 
@@ -18,6 +19,7 @@ public class Person {
 
     @Email(message = "Email should be valid")
     @NotEmpty(message = "Email should not be empty")
+    @EmailConstraint
     private String email;
 
     @Pattern(regexp = "^[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*$",
