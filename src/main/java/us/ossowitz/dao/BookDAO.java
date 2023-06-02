@@ -53,22 +53,20 @@ public class BookDAO {
 
     public void save(Book book) {
         jdbcTemplate.update("""
-                        INSERT INTO library_automation.book (person_id, title, author, year, vendorcode) 
-                        VALUES (?,?,?,?,?)
+                        INSERT INTO library_automation.book (title, author, year, vendorcode) 
+                        VALUES (?,?,?,?)
                         """,
-                book.getPersonId(), book.getTitle(),
-                book.getAuthor(), book.getYear(),
-                book.getVendorCode());
+                book.getTitle(), book.getAuthor(),
+                book.getYear(), book.getVendorCode());
     }
 
     public void update(Book updatedBook) {
         jdbcTemplate.update("""
                         UPDATE library_automation.book
-                        SET person_id=?, title=?, author=?, year=?, vendorcode=?
+                        SET title=?, author=?, year=?, vendorcode=?
                         """,
-                updatedBook.getPersonId(), updatedBook.getTitle(),
-                updatedBook.getAuthor(), updatedBook.getYear(),
-                updatedBook.getVendorCode()
+                updatedBook.getTitle(), updatedBook.getAuthor(),
+                updatedBook.getYear(), updatedBook.getVendorCode()
         );
     }
 
