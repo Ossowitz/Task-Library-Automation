@@ -1,9 +1,6 @@
 package us.ossowitz.models.book;
 
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import us.ossowitz.util.book.TitleBookConstraint;
 
 public class Book {
@@ -15,12 +12,15 @@ public class Book {
     private String title;
 
     @NotEmpty(message = "Author name should not be empty")
-    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Pattern(regexp = "^[a-zA-Z ]+$")
     private String author;
 
-    @Size(min = 0, message = "Publication year should be greater than 0")
+    @Min(value = 0, message = "Publication year should be greater than 0")
     private int year;
 
+    /**
+     * TODO Создать валидатор на проверку уникальности
+     */
     @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
     private int vendorCode;
 
