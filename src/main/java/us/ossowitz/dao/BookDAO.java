@@ -38,6 +38,17 @@ public class BookDAO {
                 .findAny();
     }
 
+    public Optional<Book> show(Integer vendorCode) {
+        return jdbcTemplate.query("""
+                                SELECT *
+                                FROM library_automation.book
+                                WHERE vendorcode=?
+                                """,
+                new Object[]{vendorCode},
+                new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny();
+    }
+
     public Book show(int id) {
         return jdbcTemplate.query("""
                                 SELECT *

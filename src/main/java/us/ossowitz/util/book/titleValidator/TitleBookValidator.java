@@ -1,4 +1,4 @@
-package us.ossowitz.util.book;
+package us.ossowitz.util.book.titleValidator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

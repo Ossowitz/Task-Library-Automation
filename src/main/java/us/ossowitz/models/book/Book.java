@@ -1,7 +1,8 @@
 package us.ossowitz.models.book;
 
 import jakarta.validation.constraints.*;
-import us.ossowitz.util.book.TitleBookConstraint;
+import us.ossowitz.util.book.titleValidator.TitleBookConstraint;
+import us.ossowitz.util.book.vendorCodeValidator.VendorCodeConstraint;
 
 public class Book {
     private int id;
@@ -22,6 +23,7 @@ public class Book {
      * TODO Создать валидатор на проверку уникальности
      */
     @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
+    @VendorCodeConstraint
     private int vendorCode;
 
     public Book() {
