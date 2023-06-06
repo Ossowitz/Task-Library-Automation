@@ -42,7 +42,7 @@ public class PersonDAO {
                                 SELECT *
                                 FROM library_automation.person
                                 WHERE email=?
-                                                                """,
+                                """,
                         new Object[]{email},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream()
