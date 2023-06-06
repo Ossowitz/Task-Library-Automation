@@ -49,14 +49,18 @@ public class BooksController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
         model.addAttribute("book", bookDAO.show(id));
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
+        if (bindingResult.hasErrors())
+            return "books/edit";
         bookDAO.update(id, book);
         return "redirect:/books";
     }
