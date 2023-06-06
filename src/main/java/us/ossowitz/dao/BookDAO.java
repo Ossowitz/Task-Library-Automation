@@ -71,13 +71,15 @@ public class BookDAO {
                 book.getYear(), book.getVendorCode());
     }
 
-    public void update(Book updatedBook) {
+    public void update(int id, Book updatedBook) {
         jdbcTemplate.update("""
                         UPDATE library_automation.book
                         SET title=?, author=?, year=?, vendorcode=?
+                        WHERE id=?
                         """,
                 updatedBook.getTitle(), updatedBook.getAuthor(),
-                updatedBook.getYear(), updatedBook.getVendorCode()
+                updatedBook.getYear(), updatedBook.getVendorCode(),
+                id
         );
     }
 

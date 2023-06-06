@@ -19,9 +19,6 @@ public class Book {
     @Min(value = 0, message = "Publication year should be greater than 0")
     private int year;
 
-    /**
-     * TODO Создать валидатор на проверку уникальности
-     */
     @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
     @VendorCodeConstraint
     private int vendorCode;

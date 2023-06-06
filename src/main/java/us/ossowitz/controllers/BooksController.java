@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.dao.BookDAO;
 import us.ossowitz.models.book.Book;
+import us.ossowitz.models.person.Person;
 
 @Controller
 @RequestMapping("/books")
@@ -43,6 +44,26 @@ public class BooksController {
             return "books/new";
 
         bookDAO.save(book);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("book", bookDAO.show(id));
+        return "books/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("book") @Valid Book book,
+                         @PathVariable("id") int id) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
+        bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        bookDAO.delete(id);
         return "redirect:/books";
     }
 }

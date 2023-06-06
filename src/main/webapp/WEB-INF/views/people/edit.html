@@ -5,7 +5,6 @@
     <title>Edit specified person</title>
 </head>
 <body>
-
 <p>Edit specified person</p>
 <hr/>
 <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
