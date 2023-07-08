@@ -45,8 +45,8 @@ public class BookDAO {
                                 FROM book
                                 WHERE vendorcode=?
                                 """,
-                new Object[]{vendorCode},
-                new BeanPropertyRowMapper<>(Book.class))
+                        new Object[]{vendorCode},
+                        new BeanPropertyRowMapper<>(Book.class))
                 .stream().findAny();
     }
 
@@ -64,9 +64,10 @@ public class BookDAO {
     }
 
     // JOIN'им таблицы Book и Person и получаем человека, которому принадлежит книга с указанным id
-//    public Optional<Person> getBookOwner(int id) {
-//        return
-//    }
+    public Optional<Person> getBookOwner(int id) {
+        return jdbcTemplate.query("SELECT p.* FROM book JOIN person p ON p.id = book.person_id WHERE book.id=?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
 
     public void save(Book book) {
         jdbcTemplate.update("""
@@ -87,6 +88,14 @@ public class BookDAO {
                 updatedBook.getYear(), updatedBook.getVendorCode(),
                 id
         );
+    }
+
+    public void release(int id) {
+        jdbcTemplate.update("UPDATE book SET person_id=NULL WHERE id=?", id);
+    }
+
+    public void assign(int id, Person selectedPerson) {
+        jdbcTemplate.update("UPDATE book SET person_id=? WHERE id=?", selectedPerson.getId(), id);
     }
 
     public void delete(int id) {

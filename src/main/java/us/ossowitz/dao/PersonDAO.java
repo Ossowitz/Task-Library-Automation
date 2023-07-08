@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import us.ossowitz.models.book.Book;
 import us.ossowitz.models.person.Person;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
 
-    public Optional<Person> show(String email) {
+    public Optional<Person> getPersonByEmail(String email) {
         return jdbcTemplate.query("""
                                 SELECT *
                                 FROM person
@@ -47,6 +48,10 @@ public class PersonDAO {
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream()
                 .findAny();
+    }
+
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM book WHERE person_id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 
     public void save(Person person) {
