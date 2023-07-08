@@ -1,9 +1,7 @@
 package us.ossowitz.models.person;
 
 import jakarta.validation.constraints.*;
-import us.ossowitz.util.person.emailValidator.EmailPersonConstraint;
 import us.ossowitz.util.person.perkValidator.PerkPersonConstraint;
-import us.ossowitz.util.person.phoneValidator.ContactPersonNumberConstraint;
 
 import static us.ossowitz.models.person.Perk.*;
 
@@ -14,12 +12,12 @@ public class Person {
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     private String name;
 
+    @NotNull
     @Min(value = 0, message = "Age should be greater than 0")
     private int age;
 
     @Email(message = "Email should be valid")
     @NotEmpty(message = "Email should not be empty")
-    @EmailPersonConstraint
     private String email;
 
     @Pattern(regexp = "^[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*$",
@@ -27,7 +25,8 @@ public class Person {
     private String address;
 
     @NotEmpty(message = "Phone number should not be empty")
-    @ContactPersonNumberConstraint
+    @Pattern(regexp = "^\\d{11}$",
+            message = "This number already taken")
     private String phoneNumber;
 
     @PerkPersonConstraint(anyOf = {READERSHIP, MENTOR, VIP, STAFF})

@@ -1,7 +1,6 @@
 package us.ossowitz.models.book;
 
 import jakarta.validation.constraints.*;
-import us.ossowitz.util.book.titleValidator.TitleBookConstraint;
 import us.ossowitz.util.book.vendorCodeValidator.VendorCodeConstraint;
 
 public class Book {
@@ -9,13 +8,13 @@ public class Book {
 
     @NotEmpty(message = "Title should not be empty")
     @Size(min = 2, max = 30, message = "Title should be between 2 and 30 characters")
-    @TitleBookConstraint
     private String title;
 
     @NotEmpty(message = "Author name should not be empty")
     @Pattern(regexp = "^[a-zA-Z ]+$")
     private String author;
 
+    @NotNull
     @Min(value = 0, message = "Publication year should be greater than 0")
     private int year;
 
