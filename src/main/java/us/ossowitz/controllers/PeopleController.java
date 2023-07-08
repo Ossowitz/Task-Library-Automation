@@ -8,26 +8,33 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.dao.PersonDAO;
 import us.ossowitz.models.person.Person;
+import us.ossowitz.util.person.emailValidator.EmailPersonValidator;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+
     private final PersonDAO personDAO;
+    private final EmailPersonValidator emailPersonValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, EmailPersonValidator emailPersonValidator) {
         this.personDAO = personDAO;
+        this.emailPersonValidator = emailPersonValidator;
     }
 
     @GetMapping
     public String index(Model model) {
         model.addAttribute("people", personDAO.index());
+
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable int id, Model model) {
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books", personDAO.getBooksByPersonId(id));
+
         return "people/show";
     }
 
@@ -39,6 +46,8 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
+        emailPersonValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors())
             return "people/new";
 
@@ -53,8 +62,13 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person,
+    public String update(@ModelAttribute("person") Person person,
+                         BindingResult bindingResult,
                          @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "people/edit";
+        }
+
         personDAO.update(id, person);
         return "redirect:/people";
     }
