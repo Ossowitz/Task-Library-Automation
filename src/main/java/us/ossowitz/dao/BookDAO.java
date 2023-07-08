@@ -21,7 +21,7 @@ public class BookDAO {
     public List<Book> index() {
         return jdbcTemplate.query("""
                         SELECT *
-                        FROM library_automation.book
+                        FROM book
                         """,
                 new BeanPropertyRowMapper<>(Book.class));
     }
@@ -29,7 +29,7 @@ public class BookDAO {
     public Optional<Book> show(String title) {
         return jdbcTemplate.query("""
                                 SELECT *
-                                FROM library_automation.book
+                                FROM book
                                 WHERE title=?
                                 """,
                         new Object[]{title},
@@ -41,7 +41,7 @@ public class BookDAO {
     public Optional<Book> show(Integer vendorCode) {
         return jdbcTemplate.query("""
                                 SELECT *
-                                FROM library_automation.book
+                                FROM book
                                 WHERE vendorcode=?
                                 """,
                 new Object[]{vendorCode},
@@ -52,7 +52,7 @@ public class BookDAO {
     public Book show(int id) {
         return jdbcTemplate.query("""
                                 SELECT *
-                                FROM library_automation.book
+                                FROM book
                                 WHERE id=?
                                 """,
                         new Object[]{id},
@@ -64,7 +64,7 @@ public class BookDAO {
 
     public void save(Book book) {
         jdbcTemplate.update("""
-                        INSERT INTO library_automation.book (title, author, year, vendorcode) 
+                        INSERT INTO book (title, author, year, vendorcode) 
                         VALUES (?,?,?,?)
                         """,
                 book.getTitle(), book.getAuthor(),
@@ -73,7 +73,7 @@ public class BookDAO {
 
     public void update(int id, Book updatedBook) {
         jdbcTemplate.update("""
-                        UPDATE library_automation.book
+                        UPDATE book
                         SET title=?, author=?, year=?, vendorcode=?
                         WHERE id=?
                         """,
@@ -85,7 +85,7 @@ public class BookDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("""
-                DELETE FROM library_automation.book
+                DELETE FROM book
                 WHERE id=?
                 """, id);
     }

@@ -21,7 +21,7 @@ public class PersonDAO {
     public List<Person> index() {
         return jdbcTemplate.query("""
                         SELECT *
-                        FROM library_automation.person
+                        FROM person
                         """,
                 new BeanPropertyRowMapper<>(Person.class));
     }
@@ -29,7 +29,7 @@ public class PersonDAO {
     public Person show(int id) {
         return jdbcTemplate.query("""
                                 SELECT *
-                                FROM library_automation.person
+                                FROM person
                                 WHERE id=?
                                 """,
                         new Object[]{id},
@@ -40,7 +40,7 @@ public class PersonDAO {
     public Optional<Person> show(String email) {
         return jdbcTemplate.query("""
                                 SELECT *
-                                FROM library_automation.person
+                                FROM person
                                 WHERE email=?
                                 """,
                         new Object[]{email},
@@ -51,7 +51,7 @@ public class PersonDAO {
 
     public void save(Person person) {
         jdbcTemplate.update("""
-                        INSERT INTO library_automation.person (name, age, email, address, phone_number, perk)
+                        INSERT INTO person (name, age, email, address, phone_number, perk)
                         VALUES (?,?,?,?,?,?)
                         """,
                 person.getName(), person.getAge(),
@@ -61,7 +61,7 @@ public class PersonDAO {
 
     public void update(int id, Person updatedPerson) {
         jdbcTemplate.update("""
-                        UPDATE library_automation.person
+                        UPDATE person
                         SET name=?, age=?, email=?, address=?, phone_number=?, perk=?
                         WHERE id=?
                         """,
@@ -72,7 +72,7 @@ public class PersonDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("""
-                DELETE FROM library_automation.person
+                DELETE FROM person
                 WHERE id=?
                 """, id);
     }
