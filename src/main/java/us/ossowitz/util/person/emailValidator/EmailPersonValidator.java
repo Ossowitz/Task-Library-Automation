@@ -1,11 +1,15 @@
 package us.ossowitz.util.person.emailValidator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import us.ossowitz.dao.PersonDAO;
+import us.ossowitz.models.person.Person;
 
-public class EmailPersonValidator implements ConstraintValidator<EmailPersonConstraint, String> {
+@Component
+public class EmailPersonValidator implements Validator {
+
     private final PersonDAO personDAO;
 
     @Autowired
@@ -14,12 +18,16 @@ public class EmailPersonValidator implements ConstraintValidator<EmailPersonCons
     }
 
     @Override
-    public void initialize(EmailPersonConstraint constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
+    public boolean supports(Class<?> clazz) {
+        return Person.class.equals(clazz);
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        return personDAO.show(value).isEmpty();
+    public void validate(Object o, Errors errors) {
+        Person person = (Person) o;
+
+        if (personDAO.getPersonByEmail(person.getEmail()).isPresent()) {
+            errors.rejectValue("email", "", "Email should be unique");
+        }
     }
 }

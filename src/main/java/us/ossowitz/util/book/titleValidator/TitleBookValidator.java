@@ -1,12 +1,15 @@
 package us.ossowitz.util.book.titleValidator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import us.ossowitz.dao.BookDAO;
+import us.ossowitz.models.book.Book;
 
-public class TitleBookValidator implements
-        ConstraintValidator<TitleBookConstraint, String> {
+@Component
+public class TitleBookValidator implements Validator {
+
     private final BookDAO bookDAO;
 
     @Autowired
@@ -15,12 +18,16 @@ public class TitleBookValidator implements
     }
 
     @Override
-    public void initialize(TitleBookConstraint constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
+    public boolean supports(Class<?> clazz) {
+        return Book.class.equals(clazz);
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        return bookDAO.show(value).isEmpty();
+    public void validate(Object o, Errors errors) {
+        Book book = (Book) o;
+
+        if (bookDAO.show(book.getTitle()).isPresent()) {
+            errors.rejectValue("title", "", "Title should be unique");
+        }
     }
 }
