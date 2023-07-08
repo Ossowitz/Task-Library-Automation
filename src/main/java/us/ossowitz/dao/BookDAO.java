@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import us.ossowitz.models.book.Book;
+import us.ossowitz.models.person.Person;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,11 @@ public class BookDAO {
                 .findAny()
                 .orElse(null);
     }
+
+    // JOIN'им таблицы Book и Person и получаем человека, которому принадлежит книга с указанным id
+//    public Optional<Person> getBookOwner(int id) {
+//        return
+//    }
 
     public void save(Book book) {
         jdbcTemplate.update("""
