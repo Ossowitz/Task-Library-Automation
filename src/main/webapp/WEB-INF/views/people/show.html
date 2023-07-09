@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Show specified person</title>
+    <style>
+        .red-text {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-<p th:text="${person.getName() + ', ' + person.getAge()}">VALUE</p>
-<p th:text="${'id = ' + person.getId()}">VALUE</p>
-<p th:text="${'email = ' + person.getEmail()}">VALUE</p>
-<p th:text="${'address = ' + person.getAddress()}">VALUE</p>
-<p th:text="${'perk = ' + person.getPerk()}">VALUE</p>
-<p th:text="${'mobile phone number = ' + person.getPhoneNumber()}">VALUE</p>
-<hr/>
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit this person</a>
+<b th:text="${person.getName() + ', ' + person.getAge()}">VALUE</b>
 <br/>
+<div th:if="${books.isEmpty()}">
+    <b class="red-text">Человек пока не взял ни одной книги</b>
+    <hr/>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <hr/>
+    <b>Книги:</b>
+    <br/>
+    <table th:each="book : ${books}">
+        <tr th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
+    </table>
+    <hr/>
+</div>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
 <br/>
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
-    <input type="submit" value="Delete this person"/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Удалить"/>
 </form>
 </body>
 </html>
