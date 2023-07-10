@@ -1,4 +1,4 @@
-package us.ossowitz.models.person;
+package us.ossowitz.models;
 
 public enum Perk {
     READERSHIP,

@@ -1,37 +1,49 @@
-package us.ossowitz.models.book;
+package us.ossowitz.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import us.ossowitz.util.book.vendorCodeValidator.VendorCodeConstraint;
 
+import java.util.Date;
+
+@Entity
+@Table(name = "book")
 public class Book {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Title should not be empty")
     @Size(min = 2, max = 30, message = "Title should be between 2 and 30 characters")
+    @Column(name = "title")
     private String title;
 
     @NotEmpty(message = "Author name should not be empty")
     @Pattern(regexp = "^[a-zA-Z ]+$")
+    @Column(name = "author")
     private String author;
 
     @NotNull
     @Min(value = 0, message = "Publication year should be greater than 0")
+    @Column(name = "year")
     private int year;
 
     @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
     @VendorCodeConstraint
+    @Column(name = "vendorcode")
     private int vendorCode;
 
-    public Book() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person owner;
 
-    public Book(int id, String title, String author, int year, int vendorCode) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.vendorCode = vendorCode;
-    }
+    @Column(name = "taken_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date takenAt;
+
+    @Transient
+    private boolean expired;
 
     public int getId() {
         return id;
@@ -71,5 +83,29 @@ public class Book {
 
     public void setVendorCode(int vendorCode) {
         this.vendorCode = vendorCode;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public Date getTakenAt() {
+        return takenAt;
+    }
+
+    public void setTakenAt(Date takenAt) {
+        this.takenAt = takenAt;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

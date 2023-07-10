@@ -8,8 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.dao.BookDAO;
 import us.ossowitz.dao.PersonDAO;
-import us.ossowitz.models.book.Book;
-import us.ossowitz.models.person.Person;
+import us.ossowitz.models.Book;
+import us.ossowitz.models.Person;
 import us.ossowitz.util.book.titleValidator.TitleBookValidator;
 
 import java.util.Optional;

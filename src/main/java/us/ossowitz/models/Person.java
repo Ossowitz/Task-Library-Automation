@@ -1,9 +1,9 @@
-package us.ossowitz.models.person;
+package us.ossowitz.models;
 
 import jakarta.validation.constraints.*;
 import us.ossowitz.util.person.perkValidator.PerkPersonConstraint;
 
-import static us.ossowitz.models.person.Perk.*;
+import static us.ossowitz.models.Perk.*;
 
 public class Person {
     private int id;

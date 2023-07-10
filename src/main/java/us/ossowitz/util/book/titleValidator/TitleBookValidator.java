@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import us.ossowitz.dao.BookDAO;
-import us.ossowitz.models.book.Book;
+import us.ossowitz.models.Book;
 
 @Component
 public class TitleBookValidator implements Validator {

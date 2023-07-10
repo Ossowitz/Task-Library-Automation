@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import us.ossowitz.dao.PersonDAO;
-import us.ossowitz.models.person.Person;
+import us.ossowitz.models.Person;
 import us.ossowitz.util.person.emailValidator.EmailPersonValidator;
 
 @Controller
