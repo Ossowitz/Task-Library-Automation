@@ -1,46 +1,54 @@
 package us.ossowitz.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import us.ossowitz.util.person.perkValidator.PerkPersonConstraint;
 
+import java.util.List;
+
 import static us.ossowitz.models.Perk.*;
 
+@Entity
+@Table(name = "person")
 public class Person {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Column(name = "name")
     private String name;
 
     @NotNull
     @Min(value = 0, message = "Age should be greater than 0")
+    @Column(name = "age")
     private int age;
 
     @Email(message = "Email should be valid")
     @NotEmpty(message = "Email should not be empty")
+    @Column(name = "email")
     private String email;
 
     @Pattern(regexp = "^[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*,\\s[А-Я][а-яА-Я]*$",
             message = "Your address should be in this format: Country, City, District")
+    @Column(name = "address")
     private String address;
 
     @NotEmpty(message = "Phone number should not be empty")
     @Pattern(regexp = "^\\d{11}$",
             message = "This number already taken")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @PerkPersonConstraint(anyOf = {READERSHIP, MENTOR, VIP, STAFF})
     private Perk perk;
 
-    public Person(int id, String name, int age, String email, String address, String phoneNumber, Perk perk) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.perk = perk;
-    }
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
     public Person() {
     }
@@ -99,5 +107,13 @@ public class Person {
 
     public Perk getPerk() {
         return perk;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
