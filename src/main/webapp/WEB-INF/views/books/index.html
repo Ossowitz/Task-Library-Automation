@@ -7,31 +7,23 @@
 
 <div id="time"></div>
 
+<!--Show current time-->
 <script>
-    // Получаем ссылку на элемент, в котором будет отображаться время
     var timeElement = document.getElementById("time");
-
-    // Функция для обновления времени каждую секунду
     function updateTime() {
-        // Создаем новый объект Date для получения текущего времени
         var currentTime = new Date();
-
-        // Форматируем время в виде строки HH:MM:SS
         var formattedTime = currentTime.getHours() + ":" +
             (currentTime.getMinutes() < 10 ? "0" : "") + currentTime.getMinutes() + ":" +
             (currentTime.getSeconds() < 10 ? "0" : "") + currentTime.getSeconds();
-
-        // Устанавливаем отформатированное время как текст элемента
         timeElement.textContent = "Current time: " + formattedTime;
     }
-
-    // Вызываем функцию updateTime() при загрузке страницы и каждую секунду
     updateTime();
     setInterval(updateTime, 1000);
 </script>
 
-<h1>Show main title with full books list</h1>
+<h1>Books</h1>
 
+<!--Show books list-->
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getId()})}"
        th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
@@ -39,6 +31,7 @@
 
 <br/>
 
-<a href="/books/new">Create new book</a>
+<a href="/books/new">Add new book</a>
+
 </body>
 </html>
