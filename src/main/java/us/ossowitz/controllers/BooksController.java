@@ -10,6 +10,7 @@ import us.ossowitz.models.Book;
 import us.ossowitz.models.Person;
 import us.ossowitz.services.BooksService;
 import us.ossowitz.services.PeopleService;
+import us.ossowitz.util.bookValidator.BookValidator;
 
 @Controller
 @RequestMapping("/books")
@@ -18,10 +19,13 @@ public class BooksController {
     private final BooksService booksService;
     private final PeopleService peopleService;
 
+    private final BookValidator bookValidator;
+
     @Autowired
-    public BooksController(BooksService booksService, PeopleService peopleService) {
+    public BooksController(BooksService booksService, PeopleService peopleService, BookValidator bookValidator) {
         this.booksService = booksService;
         this.peopleService = peopleService;
+        this.bookValidator = bookValidator;
     }
 
     @GetMapping()
@@ -59,6 +63,8 @@ public class BooksController {
     @PostMapping()
     public String create(@ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "books/new";
         }
