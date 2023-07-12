@@ -30,8 +30,7 @@ public class Book {
     private int year;
 
     @Digits(integer = 6, message = "«VendorCode» should contain exactly 6 digits", fraction = 0)
-    @VendorCodeConstraint
-    @Column(name = "vendorcode")
+    @Column(name = "vendor_code")
     private int vendorCode;
 
     @ManyToOne

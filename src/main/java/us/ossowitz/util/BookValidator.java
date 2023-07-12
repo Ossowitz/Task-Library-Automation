@@ -32,13 +32,13 @@ public class BookValidator implements Validator {
 
     private void validateVendorCode(Book book, Errors errors) {
         if (booksService.isTitleTaken(book.getTitle())) {
-            errors.rejectValue("title", "", "This title will be taken");
+            errors.rejectValue("title", "", "This title already will be taken");
         }
     }
 
     private void validateTitle(Book book, Errors errors) {
         if (booksService.isVendorCodeExists(book.getVendorCode())) {
-            errors.rejectValue("vendorCode", "", "This vendor code will be taken");
+            errors.rejectValue("vendorCode", "", "This vendor already code will be taken");
         }
     }
 }
