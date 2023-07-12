@@ -53,6 +53,14 @@ public class PeopleService {
         return peopleRepository.findByName(name);
     }
 
+    public boolean isEmailExists(String email) {
+        return peopleRepository.existsByEmail(email);
+    }
+
+    public boolean isPhoneNumberExists(String phoneNumber) {
+        return peopleRepository.existsByPhoneNumber(phoneNumber);
+    }
+
     public List<Book> getBooksByPersonId(int id) {
         Optional<Person> person = peopleRepository.findById(id);
 
