@@ -89,6 +89,7 @@ public class BooksService {
         });
     }
 
+    @Transactional
     public void assign(int id, Person selectedPerson) {
         booksRepository.findById(id).ifPresent(book -> {
             book.setOwner(selectedPerson);
