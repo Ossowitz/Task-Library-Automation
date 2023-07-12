@@ -45,8 +45,16 @@ public class BooksService {
         return book.orElse(null);
     }
 
+    public boolean isVendorCodeExists(int vendorCode) {
+        return booksRepository.existsByVendorCode(vendorCode);
+    }
+
     public List<Book> searchByTitle(String query) {
         return booksRepository.findByTitleStartingWith(query);
+    }
+
+    public boolean isTitleTaken(String title) {
+        return booksRepository.existsByTitle(title);
     }
 
     @Transactional
