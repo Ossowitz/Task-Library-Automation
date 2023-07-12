@@ -2,7 +2,6 @@ package us.ossowitz.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import us.ossowitz.util.book.vendorCodeValidator.VendorCodeConstraint;
 
 import java.util.Date;
 

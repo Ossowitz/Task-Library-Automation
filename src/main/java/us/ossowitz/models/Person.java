@@ -2,7 +2,7 @@ package us.ossowitz.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import us.ossowitz.util.person.perkValidator.PerkPersonConstraint;
+import us.ossowitz.util.personValidator.perkValidator.PerkPersonConstraint;
 
 import java.util.List;
 
