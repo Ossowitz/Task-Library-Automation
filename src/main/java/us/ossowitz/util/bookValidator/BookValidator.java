@@ -1,4 +1,4 @@
-package us.ossowitz.util;
+package us.ossowitz.util.bookValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

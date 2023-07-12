@@ -1,4 +1,4 @@
-package us.ossowitz.util.person.perkValidator;
+package us.ossowitz.util.personValidator.perkValidator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
