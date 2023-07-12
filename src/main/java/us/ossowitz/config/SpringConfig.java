@@ -26,7 +26,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("us.ossowitz")
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("us.ossowitz.repositories")
 @EnableWebMvc
